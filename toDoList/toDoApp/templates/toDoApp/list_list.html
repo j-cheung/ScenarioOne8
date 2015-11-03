@@ -1,0 +1,8 @@
+<h1>Lists</h1>
+<ul>
+{% for list in object_list %}
+    <li>{{ list.list_title}}</li>
+{% empty %}
+    <li>No lists yet.</li>
+{% endfor %}
+</ul>
