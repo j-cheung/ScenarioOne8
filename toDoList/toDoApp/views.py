@@ -45,7 +45,7 @@ class TaskListView(ListView):
 
 	def get_queryset(self):
 		self.list = get_object_or_404(List, id=self.args[0])
-		return Task.objects.filter(List = self.list)
+		return Task.objects.filter(theList_id = self.list)
 		#currentUser = request.user
 		#userLists = List.objects.filter(user = currentUser)
 		#listTasks = Task.objects.all()
