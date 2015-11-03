@@ -101,4 +101,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
-LOGIN_URL = '/toDoApp/loginuser/'
+LOGIN_URL = '/loginuser/'

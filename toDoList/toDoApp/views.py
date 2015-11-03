@@ -85,6 +85,8 @@ class TaskListView(ListView):
 #	@method_decorator(login_required)
 	def get_queryset(self):
 		self.list = get_object_or_404(List, id=self.args[0])
+
+
 		return Task.objects.filter(theList_id = self.list)
 		#currentUser = request.user
 		#userLists = List.objects.filter(user = currentUser)
@@ -113,7 +115,7 @@ def index(request):
 	#currentUser = request.user
 	#lists = List.objects.filter(user = currentUser)
 
-	return HttpResponse("welcome")
+	return render(request, 'toDoApp/index.html')
 
 
 # Create your views here.
