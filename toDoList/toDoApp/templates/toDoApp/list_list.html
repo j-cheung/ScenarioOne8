@@ -1,7 +1,9 @@
 <h1>Lists</h1>
 <ul>
 {% for list in object_list %}
-    <li>{{ list.list_title}}</li>
+    <a href="../list/{{list.id}}">
+    	<li>{{ list.list_title}}</li>
+    </a>
 {% empty %}
     <li>No lists yet.</li>
 {% endfor %}

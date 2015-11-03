@@ -1,0 +1,10 @@
+<h1>Tasks</h1>
+<ul>
+{% for task in object_list %}
+    <a href="#">
+    	<li>{{ task.task_title}}</li>
+    </a>
+{% empty %}
+    <li>No tasks yet.</li>
+{% endfor %}
+</ul>

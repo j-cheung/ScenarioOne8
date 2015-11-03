@@ -1,13 +1,13 @@
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 
 from toDoApp.models import List, Task
 from django.contrib.auth.models import User
 
-from .forms import newListForm
+from .forms import newListForm, newTaskForm
 
 class UserListView(ListView):
 	#template_name = "user_list.html"
@@ -19,9 +19,6 @@ class UserListView(ListView):
 		userLists = List.objects.filter(user = currentUser)
 		#userLists = List.objects.all()
 		return userLists
-
-
-
 
 def createList(request):
 	if request.method == 'POST':
@@ -43,14 +40,33 @@ def createList(request):
 #	fields = ['list_title']
 
 class TaskListView(ListView):
-	#template_name = "user_list.html"
-	model = Task
+	template_name = "toDoApp/task_list.html"
+	#model = Task
 
 	def get_queryset(self):
+		self.list = get_object_or_404(List, id=self.args[0])
+		return Task.objects.filter(List = self.list)
 		#currentUser = request.user
 		#userLists = List.objects.filter(user = currentUser)
-		listTasks = Task.objects.all()
-		return listTasks
+		#listTasks = Task.objects.all()
+		#return listTasks
+
+def createTask(request, listID):
+	if request.method == 'POST':
+		form = newTaskForm(request.POST)
+		if form.is_valid():
+			newTask = form.save(commit=False)
+			newTaskList = List.objects.get(id = listID)
+			newTask.completed = False;
+			newTask.save()
+			
+			return HttpResponseRedirect('/lists/')
+	else:
+		form = newListForm()
+
+	#return HttpResponse("hi")
+	return render(request, 'toDoApp/createList.html', {'form': form})
+		
 
 def index(request):
 	#currentUser = request.user
