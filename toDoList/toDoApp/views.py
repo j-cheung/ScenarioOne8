@@ -47,15 +47,17 @@ def logoutuser(request):
 
 
 class UserListView(ListView):
-	#template_name = "user_list.html"
 	model = List
+	context_object_name = 'list_list'
 
-#	@method_decorator(login_required)
+	def get_context_data(self, **kwargs):
+		context = super(UserListView, self).get_context_data(**kwargs)
+		context['user'] = self.request.user
+		return context
+
 	def get_queryset(self):
 		currentUser = self.request.user
-		#currentUser = User.objects.get(username = 'test123')
 		userLists = List.objects.filter(user = currentUser)
-		#userLists = List.objects.all()
 		return userLists
 
 @login_required
@@ -71,27 +73,22 @@ def createList(request):
 	else:
 		form = newListForm()
 
-	#return HttpResponse("hi")
 	return render(request, 'toDoApp/createList.html', {'form': form})
 		
-#class ListCreate(CreateView):
-#	model = List
-#	fields = ['list_title']
-
 
 class TaskListView(ListView):
 	template_name = "toDoApp/task_list.html"
-	#model = Task
-#	@method_decorator(login_required)
+	context_object_name = 'task_list'
+
+	def get_context_data(self, **kwargs):
+		context = super(TaskListView, self).get_context_data(**kwargs)
+		context['list'] = self.list
+		return context
+
 	def get_queryset(self):
-		self.list = get_object_or_404(List, id=self.args[0])
-
-
+		self.list = get_object_or_404(List, id=self.kwargs['listID'])
 		return Task.objects.filter(theList_id = self.list)
-		#currentUser = request.user
-		#userLists = List.objects.filter(user = currentUser)
-		#listTasks = Task.objects.all()
-		#return listTasks
+
 
 @login_required
 def createTask(request, listID):
@@ -106,15 +103,10 @@ def createTask(request, listID):
 			return HttpResponseRedirect('/lists/')
 	else:
 		form = newListForm()
-
-	#return HttpResponse("hi")
 	return render(request, 'toDoApp/createList.html', {'form': form})
 		
 
 def index(request):
-	#currentUser = request.user
-	#lists = List.objects.filter(user = currentUser)
-
 	return render(request, 'toDoApp/index.html')
 
 

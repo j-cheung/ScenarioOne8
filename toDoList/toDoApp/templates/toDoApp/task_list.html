@@ -1,6 +1,6 @@
-<h1>Tasks</h1>
+<h1>Tasks in {{ list.list_title }}</h1>
 <ul>
-{% for task in object_list %}
+{% for task in task_list %}
     <a href="#">
     	<li>{{ task.task_title}}</li>
     </a>

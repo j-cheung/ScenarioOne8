@@ -1,8 +1,8 @@
-<h1>Lists</h1>
+<h1>Lists of {{ user.username }} </h1>
 <ul>
-{% for list in object_list %}
+{% for list in list_list %}
     <a href="../list/{{list.id}}">
-    	<li>{{ list.list_title}}</li>
+    	<li>{{ list.list_title }}</li>
     </a>
 {% empty %}
     <li>No lists yet.</li>
