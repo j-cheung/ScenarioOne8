@@ -40,9 +40,9 @@
 					        <div class="card-list">
 					        	{% for task in task_list %}
 					        		<div id="{{ task.id }}" class="card">
-					        			<a class="card-title">
+					        			<span class="card-title">
 					        				<b>{{ task.task_title }}</b>
-					        			</a>
+					        			</span>
 					            		<li>{{ task.description }}</li>
 					            		<a id='edit' href="../../editTask/{{task.id}}">
     											<b>edit</b>

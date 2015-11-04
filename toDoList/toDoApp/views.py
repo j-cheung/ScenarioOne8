@@ -117,6 +117,7 @@ class TaskListView(ListView):
 
 @login_required
 def createTask(request, listID):
+	list1 = List.objects.get(id=listID)
 	if request.method == 'POST':
 		form = newTaskForm(request.POST)
 		if form.is_valid():
@@ -128,7 +129,7 @@ def createTask(request, listID):
 			url = reverse('task-list', args = (listID,))
 			return HttpResponseRedirect(url)
 	else:
-		list1 = List.objects.get(id=listID)
+		#list1 = List.objects.get(id=listID)
 		form = newTaskForm()
 	return render(request, 'toDoApp/addTask.html', {'form': form, 'list': list1 })
 	
