@@ -2,13 +2,16 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 
 from django.shortcuts import render, get_object_or_404
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
+
 
 from toDoApp.models import List, Task
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+
 
 from .forms import newListForm, newTaskForm, UserForm, LoginForm 
 
@@ -66,7 +69,6 @@ def createList(request):
 		form = newListForm(request.POST)
 		if form.is_valid():
 			newList = form.save(commit=False)
-			#newListUser = request.user
 			newList.user = request.user
 			newList.save()
 			return HttpResponseRedirect('/user/')
@@ -82,12 +84,16 @@ class TaskListView(ListView):
 
 	def get_context_data(self, **kwargs):
 		context = super(TaskListView, self).get_context_data(**kwargs)
-		context['list'] = self.list
-		return context
+		if self.list.user == self.request.user:
+			context['list'] = self.list
+			return context
 
 	def get_queryset(self):
 		self.list = get_object_or_404(List, id=self.kwargs['listID'])
-		return Task.objects.filter(theList_id = self.list)
+		if self.list.user == self.request.user: 
+			return Task.objects.filter(theList_id = self.list.id)
+		else:
+			return HttpResponseRedirect('/loginuser/')
 
 
 @login_required
@@ -96,14 +102,15 @@ def createTask(request, listID):
 		form = newTaskForm(request.POST)
 		if form.is_valid():
 			newTask = form.save(commit=False)
-			newTaskList = List.objects.get(id = listID)
-			newTask.completed = False;
+			newTask.theList = List.objects.get(id=listID)
+			newTask.completed = False
 			newTask.save()
 			
-			return HttpResponseRedirect('/lists/')
+			url = reverse('task-list', args = (listID,))
+			return HttpResponseRedirect(url)
 	else:
-		form = newListForm()
-	return render(request, 'toDoApp/createList.html', {'form': form})
+		form = newTaskForm()
+	return render(request, 'toDoApp/createTask.html', {'form': form})
 		
 
 def index(request):
