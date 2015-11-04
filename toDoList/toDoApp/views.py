@@ -1,5 +1,5 @@
 from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.urlresolvers import reverse
@@ -13,7 +13,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
 
-from .forms import newListForm, newTaskForm, UserForm, LoginForm 
+from .forms import newListForm, editListForm, newTaskForm, editTaskForm, UserForm, LoginForm 
 
 def adduser(request):
     if request.method == "POST":
@@ -78,6 +78,24 @@ def createList(request):
 
 	return render(request, 'toDoApp/addList.html', {'form': form})
 		
+@login_required(login_url = '/loginuser/')
+def editList(request, listID):
+	listInstance = List.objects.get(id=listID)
+	if request.method == 'POST':
+		form = editListForm(request.POST or None, instance = listInstance)
+		if form.is_valid():
+			editList = form.save()
+			return HttpResponseRedirect('/mainList/')
+	else:
+		form = editListForm()
+
+	return render(request, 'toDoApp/editList.html', {'form': form})
+	
+def deleteList(request, listID):
+	listInstance = List.objects.get(id=listID)
+	listInstance.delete()
+	
+	return HttpResponseRedirect('/mainList/')
 
 class TaskListView(ListView):
 	template_name = "toDoApp/tasklist.html"
@@ -110,12 +128,30 @@ def createTask(request, listID):
 			url = reverse('task-list', args = (listID,))
 			return HttpResponseRedirect(url)
 	else:
+		list1 = List.objects.get(id=listID)
 		form = newTaskForm()
-	return render(request, 'toDoApp/createTask.html', {'form': form})
-		
+	return render(request, 'toDoApp/addTask.html', {'form': form, 'list': list1 })
+	
 
-def index(request):
-	return render(request, 'toDoApp/index.html')
+@login_required(login_url = '/loginuser/')
+def editTask(request, taskID):
+	taskInstance = Task.objects.get(id=taskID)
+	if request.method == 'POST':
+		form = editTaskForm(request.POST or None, instance = taskInstance)
+		if form.is_valid():
+			editTask = form.save()
+			url = reverse('task-list', args = (taskInstance.theList.id,))
+			return HttpResponseRedirect(url)
+	else:
+		form = editTaskForm()
+	return render(request, 'toDoApp/editTask.html', {'form': form, 'list': taskInstance.theList, 'task': taskInstance})
+	
+def deleteTask(request, taskID):
+	taskInstance = Task.objects.get(id=taskID)
+	listID = taskInstance.theList.id
+	taskInstance.delete()
+	url = reverse('task-list', args = (listID,))
+	return HttpResponseRedirect(url)
 
 
 # Create your views here.

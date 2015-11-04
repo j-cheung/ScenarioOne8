@@ -2,46 +2,16 @@
 
 {% block content %}
 
-		
-			<div id="popupBoxOnePosition">
-				<div class="popupBoxWrapper">
-					<div class="popupBoxContent">
-						<h3>Add List</h3>
-						<p>Input form here</p>
-						<!-- <p><a href="javascript:void(0)" onclick="toggle_visibility('popupBoxOnePosition');"><input type="submit" value="Add"></p> -->
-						<p><a href="javascript:void(0)" onclick="toggle_visibility('popupBoxOnePosition');"><span id='close'>x</span></p>
-					</div>
-				</div>
-			</div>
-			<style type="text/css">
 
-			#popupBoxOnePosition{
-				left: 0; position: fixed; width: 100%; height: 120%;
-				background-color: rgba(0,0,0,0.7); display: none; z-index: 2; border-radius: 9px;
-			}
-			.popupBoxWrapper{
-				position:absolute; max-width: 700px; width: 100%; margin: 50px auto; text-align: left; border-radius: 9px;  left: 0%; right: 0%;
-			}
-			.popupBoxContent{
-			    background-color: #FFF; padding: 15px; border-radius: 9px;
-			}
-
-			</style>
 
 			<script type="text/javascript">
-			function toggle_visibility(id) {
-				var e = document.getElementById(id);
-				if(e.style.display == 'block')
-					e.style.display = 'none';
-				else
-					e.style.display = 'block';
-			}
-
+			
 			function confirmDelete(id) {
 				var result = confirm("Delete entry?");
 				var e = document.getElementById(id);
 				if (result) {
 					e.parentElement.removeChild(e);
+					window.location = "../../deleteList/" + id;
 				} else {
 					return false;
 				}
@@ -73,13 +43,17 @@
     										<a href="../selectList/{{list.id}}">
     											<b>{{ list.list_title }}</b>
     										</a>
+    										
+    									</a>
+    									<a id='edit' href="../editList/{{list.id}}">
+    											<b>edit</b>
     									</a>
     									<span id='close' onclick='confirmDelete(this.parentNode.id)'>x</span>
     								</div>
     							{% empty %}
     								<li>No lists yet.</li>
     							{% endfor %}
-					            <a href="../addList/" onclick="toggle_visibility('popupBoxOnePosition');"><button id='addmain'>+</button></a>
+					            <a href="../addList/" ><button id='addmain'>+</button></a>
 					        </div>
 					    </div>
 					</div>

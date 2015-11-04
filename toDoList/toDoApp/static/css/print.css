@@ -114,6 +114,24 @@ label {
     color:#fff;
 }
 
+#edit {
+    float:right;
+    position: relative;
+    margin-right: 15px;
+    display:inline-block;
+    padding:2px 5px;
+    background:#FFC9FF;
+    border-radius: 4px;
+}
+
+#edit:hover {
+    float:right;
+    display:inline-block;
+    padding:2px 5px;
+    background:#FFC9FF;
+    color:#fff;
+}
+
 #addmain {
     display:inline-block;
     padding:2px 10px;

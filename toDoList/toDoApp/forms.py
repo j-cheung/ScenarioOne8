@@ -8,12 +8,31 @@ class newListForm(forms.ModelForm):
 		model = List
 		fields = ('list_title',)
 
+class editListForm(forms.ModelForm):
+
+	class Meta:
+		model = List
+		fields = ('list_title',)
+
 class newTaskForm(forms.ModelForm):
+
+	def __init__(self, *args, **kwargs):
+		super(newTaskForm, self).__init__(*args, **kwargs)
+		self.fields['description'].required = True
 
 	class Meta:
 		model = Task
 		fields = ('task_title', 'description', )
 
+class editTaskForm(forms.ModelForm):
+
+	def __init__(self, *args, **kwargs):
+		super(editTaskForm, self).__init__(*args, **kwargs)
+		self.fields['description'].required = True
+
+	class Meta:
+		model = Task
+		fields = ('task_title', 'description', )
 
 
 class UserForm(forms.ModelForm):
