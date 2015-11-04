@@ -1,7 +1,7 @@
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 
@@ -35,14 +35,14 @@ def loginuser(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect('/user/')
+                return HttpResponseRedirect('/mainList/')
+                #return redirect("main-list")
             else:
                 return HttpResponse("Invalid login")
     else:
         form = LoginForm()
 
     return render(request, 'toDoApp/loginuser.html', {'form': form})
-
 
 def logoutuser(request):
     logout(request)
@@ -51,7 +51,8 @@ def logoutuser(request):
 
 class UserListView(ListView):
 	model = List
-	context_object_name = 'list_list'
+	context_object_name = 'main_list'
+	template_name = "toDoApp/mainlist.html"
 
 	def get_context_data(self, **kwargs):
 		context = super(UserListView, self).get_context_data(**kwargs)
@@ -63,7 +64,7 @@ class UserListView(ListView):
 		userLists = List.objects.filter(user = currentUser)
 		return userLists
 
-@login_required
+@login_required(login_url = '/loginuser/')
 def createList(request):
 	if request.method == 'POST':
 		form = newListForm(request.POST)
@@ -71,21 +72,21 @@ def createList(request):
 			newList = form.save(commit=False)
 			newList.user = request.user
 			newList.save()
-			return HttpResponseRedirect('/user/')
+			return HttpResponseRedirect('/mainList/')
 	else:
 		form = newListForm()
 
-	return render(request, 'toDoApp/createList.html', {'form': form})
+	return render(request, 'toDoApp/addList.html', {'form': form})
 		
 
 class TaskListView(ListView):
-	template_name = "toDoApp/task_list.html"
+	template_name = "toDoApp/tasklist.html"
 	context_object_name = 'task_list'
 
 	def get_context_data(self, **kwargs):
 		context = super(TaskListView, self).get_context_data(**kwargs)
 		if self.list.user == self.request.user:
-			context['list'] = self.list
+			context['selected_list'] = self.list
 			return context
 
 	def get_queryset(self):

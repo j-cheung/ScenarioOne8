@@ -24,8 +24,8 @@
     <!-- end social meta -->
     <title>What-To-Do</title>
 
-    <link href="css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
-    <link media="screen, projection" rel="stylesheet" href="css/print.css" type="text/css" />
+    <link href="../../static/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+    <link media="screen, projection" rel="stylesheet" href="../../static/css/print.css" type="text/css" />
 
     <!--[if IE]><link href="//static.ucl.ac.uk/indigo/css/ie.min.css" rel="stylesheet" /><![endif]-->
     <!--[if lt IE 8]><link href="//static.ucl.ac.uk/indigo/css/ie-old.min.css" rel="stylesheet" /><![endif]-->
@@ -81,20 +81,17 @@
 
         <div class="photograph">
             <div class="brand">
-                <p class="brand__heading">Login Page - Jamie is a Prick</p>
+                <p class="brand__heading">WHAT-TO-DO</p>
                 <a href="/" class="brand__link"><span class="visually-hidden">Home</span></a>
                     <img src="//cdn.ucl.ac.uk/img/blank.gif" data-src="//static.ucl.ac.uk/indigo/images/ucl-logo.svg" alt="UCL logo" id="logo" class="brand__logo lazy">
             </div>
             <p class="photograph__description"></p>
         </div><!-- end .photograph -->
 
-            <div class="sidebar">
-
-            </div> <!-- end .sidebar -->
-
         </div> <!-- end .wrapper -->
 
     </header><!-- end .header -->
+
 
     <div class="site-content wrapper">
 
@@ -104,20 +101,9 @@
 
         </header>
 
-        <div class="site-content__inner clearfix">
-
-            <div class="site-content__body">
             {% block content %}
             {% endblock %}
             <div class="site-content__sidebar">
-
-                </div>
-
-                <!-- end main slot where silva content gets rendered-->
-
-            </div>
-
-            <!--End last modified info-->
         </div>
 
 

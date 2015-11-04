@@ -1,5 +1,31 @@
-<form method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Log in" />
-</form>
+{% extends "toDoApp/base.html" %}
+
+{% block content %}
+				
+<div class="site-content__inner clearfix">
+	<nav class="breadcrumb clearfix">
+		<ul class="breadcrumb__list">
+			<li class="breadcrumb__item"><a href="../loginuser">What-To-Do</a></li>
+			<li class="breadcrumb__item breadcrumb__item--current">Login</li>
+		</ul>
+	</nav>
+		<section class="loginform cf">
+				<form name="login"  method="post" accept-charset="utf-8">
+					{% csrf_token %}
+					<ul>
+						<li><label for="username">Username</label>
+							<input type="text" name="username" placeholder="Jamie Law" maxlength="30" required></li>
+						<li><label for="password">Password</label>
+							<input type="password" name="password" placeholder="password" maxlength="30" required></li>
+						<li>
+									<input type="submit" value="Log in"></li>
+									<div class="signup_text"><a href="../adduser">Sign Up?</a></div>
+								</ul>
+					</form>
+		</section>
+
+		
+
+
+
+{% endblock %}

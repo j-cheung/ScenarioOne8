@@ -2154,7 +2154,9 @@ figure + figure, figure + p {
   float: left;
   text-transform: none;
   font-size: 14px;
-  font-size: 1.4rem; }
+  font-size: 1.4rem;
+  position: relative;
+    z-index: 1; }
   .breadcrumb__item:after {
     content: "/";
     color: #aaaaaa;
