@@ -2,7 +2,7 @@ Scenario Week 1: Team 8 Report
 Johnson Cheung, Alexander Xu, Anita Ghoddoomi-Zadeh, Jamie Law
 
 Progress Completed (2/11/15)
-•	Initial learning conducted on Django as the team is more familiarised with the usage of Python
+•	Initial learning conducted on Django at https:/www.djangoproject.com as the team is more familiarised with the usage of Python 
 •	Analysis of the UCL Indigo template
 •	Familiarisation with the Linux VM
 •	GitHub repository created
@@ -14,12 +14,20 @@ Progress Completed (3/11/15)
 •	List function in Django started and implemented (Johnson)
 •	Work on templates started (Alex)
 •	Authentication in Django started and implemented (Jamie)
-•	Learning on scripting started (Anita)
+•	Learning on scripting started via Lynda (Anita)
 •	List function and authentication in Django combined for restriction/access limits (Johnson+Jamie)
 
-Our project incorporates user sign-in, which is relatively easy to implement with Django due to the fact that it supports authentication via a module (django.contrib.auth). This will allow users to manipulate only the to-do lists which they create (and restrict access from other users).  As Django implements an admin UI, it is possible to create users via this interface and allows said administrator to manipulate any further aspects such as groups/permissions. This is extremely useful for system maintenance but it is also important to implement users creating their account themselves on the web application. As such, a registration and login form was created in Django (and .html templates) to implement user authentication, as well as a logout function (which can be called from anywhere for ease-of-access). Upon logout, the user is automatically redirected back to a login page.
+Our project incorporates user sign-in, which is relatively easy to implement with Django due to the fact that it supports authentication via a module (django.contrib.auth). This will allow users to manipulate only the to-do lists which they create (and restrict access from other users).  As Django implements an admin UI, it is possible to create users via this interface and allows said administrator to manipulate any further aspects such as groups/permissions. This is extremely useful for system maintenance but it is also important to implement users creating their account themselves on the web application. As such, a registration and login form was created in Django (and .html templates) to implement user authentication, as well as a logout function (which can be called from anywhere for ease-of-access). Upon logout, the user is automatically redirected back to a login page. If users that aren’t logged in try to access any other page apart from the login/registration page, then they are automatically redirected to the login page.
 
-This user authentication then combines with the list function, allowing users that are signed in to view/manipulate/create lists for themselves (and restricting access if not signed in). Administrators can edit user access if required. 
+This user authentication then combines with the list function, allowing users that are signed in to view/manipulate/create lists for themselves (and restricting access if not signed in). Administrators can edit user access if required via the admin UI automatically implemented within Django.
 
-After list functionality was implemented with the authentication, it was then combined with the templates (provided by UCL Indigo), although tailored to our web application, meaning that the majority of the application itself is complete, although database/server-side/scripting work is still yet to be done.
+Progress Completed (4/11/15)
+•	Initial work started on scripting and back-end (Anita)
+•	Indigo templates combined with Django code as a fully functioning application (Johnson+Alex)
 
+After list functionality was implemented with the authentication, it was then combined with the templates (provided by UCL Indigo), although tailored to our web application, meaning that application itself is essentially complete, although database/server-side/scripting work is still yet to be done.
+
+Progress Completed (5/11/15)
+•	Database backup method implemented (via scripting)
+
+As Django automatically creates a database for our application with sqlite, the only task we had to do with this database is to implement automated backups (every hour) to ensure data integrity.
