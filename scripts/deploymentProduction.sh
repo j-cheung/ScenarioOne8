@@ -84,3 +84,4 @@ sudo chown :apache ~/Desktop/ScenarioOne8/toDoList
 
 #Start server
 sudo systemctl start httpd
+sudo systemctl enable httpd
