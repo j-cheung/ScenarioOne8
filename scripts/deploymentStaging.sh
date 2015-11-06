@@ -13,6 +13,7 @@ sudo pip install virtualenv
 cd
 cd Desktop
 git clone https://github.com/stupidjc/ScenarioOne8
+cp ~/Desktop/ScenarioOne8/scripts/pullUpdates.sh ~/
 cd ScenarioOne8
 git checkout -b staging remotes/origin/staging
 
