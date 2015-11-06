@@ -1,0 +1,11 @@
+Deployment Script
+https://www.digitalocean.com/community/tutorials/how-to-serve-django-applications-with-apache-and-mod_wsgi-on-centos-7
+
+1. Installation of mod_wsgi module (used to interface with the Django app)
+2. Cloning of github repository onto server (Chooses staging/production branch)
+3. Configuring a python virtual environment (and installing django into that virtual environment). This is so that so that our Django project will be separate from the system's tools and any other Python projects.
+4. We adjusted the settings of the django project (altering settings.py) and collected the static files.
+5. Copied django files into var/www/html (and deactivated virtual environment)
+6. Configuring Apache (as the front end): created a configuration file called django.conf in /etc/httpd/conf.d where we configured the static files, granted access to the wsgi.py file of the django project, and constructed a portion of the file that actually handles the WSGI pass.
+7. We fixed some permissions sets so that the Apache service can access our files. 
+8. Started the server
