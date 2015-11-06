@@ -1,0 +1,61 @@
+{% extends "toDoApp/base.html" %}
+
+{% block content %}
+
+
+
+			<script type="text/javascript">
+			
+			function confirmDelete(id) {
+				var result = confirm("Delete entry?");
+				var e = document.getElementById(id);
+				if (result) {
+					e.parentElement.removeChild(e);
+					window.location = "../../deleteList/" + id;
+				} else {
+					return false;
+				}
+			}
+
+			</script>
+
+
+		<div class="site-content__inner clearfix">
+            <nav class="breadcrumb clearfix">
+            	<li class="breadcrumb__item__right"><a href="../logoutuser">Sign Out</a></li>
+            	<li class="breadcrumb__item__right">&nbsp;/&nbsp;</li>
+            	<li class="breadcrumb__item__right">{{request.user.username}}</li>
+                    <ul class="breadcrumb__list">
+                        <li class="breadcrumb__item">What-To-Do</li>
+                        <li class="breadcrumb__item breadcrumb__item--current">Main List</li>
+                    </ul>
+                </nav>
+
+					<div id="main">
+					    <div class="list">
+					        <div class="list-header">
+					             <h2 class="list-title">Main List</h2>
+					        </div>
+					        <div class="card-list">
+    							{% for list in main_list %}
+    								<div id="{{list.id}}" class="card">
+    									<a class="card-title">
+    										<a href="../selectList/{{list.id}}">
+    											<b>{{ list.list_title }}</b>
+    										</a>
+    										
+    									</a>
+    									<a id='edit' href="../editList/{{list.id}}">
+    											<b>edit</b>
+    									</a>
+    									<span id='close' onclick='confirmDelete(this.parentNode.id)'>x</span>
+    								</div>
+    							{% empty %}
+    								<li>No lists yet.</li>
+    							{% endfor %}
+					            <a href="../addList/" ><button id='addmain'>+</button></a>
+					        </div>
+					    </div>
+					</div>
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "toDoApp/base.html" %}
+
+{% block content %}
+				
+				        <div class="site-content__inner clearfix">
+            <nav class="breadcrumb clearfix">
+                     <ul class="breadcrumb__list">
+                        <li class="breadcrumb__item">What-To-Do</li>
+                        <li class="breadcrumb__item"><a href="../../mainList">Main List</a></li>
+                        <li class="breadcrumb__item breadcrumb__item--current">New List</li>
+                    </ul>
+                </nav>
+
+						<section class="loginform cf">
+							<div>New List</div>
+						<form name="newList" method="post" accept-charset="utf-8">
+							{% csrf_token %}
+    						{{form}}
+    						<input class="submit-signup" type="submit" value="Submit"></li>
+						</form>
+						</section>
+
+
+{% endblock %}

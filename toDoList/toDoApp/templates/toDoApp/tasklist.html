@@ -1,0 +1,61 @@
+{% extends "toDoApp/base.html" %}
+
+{% block content %}
+
+
+
+			<script type="text/javascript">
+			
+			function confirmDelete(id) {
+				var result = confirm("Delete entry?");
+				var e = document.getElementById(id);
+				if (result) {
+					e.parentElement.removeChild(e);
+					window.location = "../../deleteTask/" + id;
+				} else {
+					return false;
+				}
+			}
+			</script>
+
+
+		<div class="site-content__inner clearfix">
+            <nav class="breadcrumb clearfix">
+            	<li class="breadcrumb__item__right"><a href="../../logoutuser">Sign Out</a></li>
+            	<li class="breadcrumb__item__right">&nbsp;/&nbsp;</li>
+            	<li class="breadcrumb__item__right">{{request.user.username}}</li>
+                    <ul class="breadcrumb__list">
+                        <li class="breadcrumb__item">What-To-Do</li>
+                        <li class="breadcrumb__item"><a href="../../mainList">Main List</a></li>
+                        <li class="breadcrumb__item breadcrumb__item--current">{{selected_list.list_title}}</li>
+                    </ul>
+                </nav>
+
+
+					<div id="main">
+					    <div class="list">
+					        <div class="list-header">
+					             <h2 class="list-title">{{selected_list.list_title}}</h2>
+					        </div>
+					        <div class="card-list">
+					        	{% for task in task_list %}
+					        		<div id="{{ task.id }}" class="card">
+					        			<span class="card-title">
+					        				<b>{{ task.task_title }}</b>
+					        			</span>
+					            		<li>{{ task.description }}</li>
+					            		<a id='edit' href="../../editTask/{{task.id}}">
+    											<b>edit</b>
+    									</a>
+					            		<span id='close' onclick='confirmDelete(this.parentNode.id)'>x</span>
+					            	</div>
+					        	{% empty %}
+					        	    <li>No tasks yet.</li>
+					        	{% endfor %}
+					            <a href="../../addTask/{{selected_list.id}}"><button id='addmain'>+</button></a>
+					        </div>
+					    </div>
+					</div>
+
+
+{% endblock %}
