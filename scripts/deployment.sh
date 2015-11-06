@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sudo systemctl stop httpd
+
 #https://www.digitalocean.com/community/tutorials/how-to-serve-django-applications-with-apache-and-mod_wsgi-on-centos-7
 #Install mod_wsgi
 sudo yum install python-setuptools http mod_wsgi
@@ -11,6 +13,8 @@ sudo pip install virtualenv
 cd
 cd Desktop
 git clone https://github.com/stupidjc/ScenarioOne8
+cd ScenarioOne8
+git checkout -b production remotes/origin/production
 
 #Configure the virtual environment
 cd
@@ -38,7 +42,7 @@ deactivate
 
 #Configure Apache
 cd /etc/httpd/conf.d
-#sudo rm django.conf
+sudo rm django.conf
 sudo touch django.conf
 
 #Adding to django.conf
