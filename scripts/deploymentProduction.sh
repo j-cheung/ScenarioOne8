@@ -13,8 +13,10 @@ sudo pip install virtualenv
 cd
 cd Desktop
 git clone https://github.com/stupidjc/ScenarioOne8
-cp ~/Desktop/ScenarioOne8/scripts/pullUpdates.sh ~/
-cd ScenarioOne8
+cp ~/Desktop/ScenarioOne8/scripts/pullUpdatesProduction.sh ~/
+cd ~
+chmod +x pullUpdatesProduction.sh
+cd ~/Desktop/ScenarioOne8
 git checkout -b production remotes/origin/production
 
 #Configure the virtual environment
